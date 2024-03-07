@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.vasiletoncu.example</groupId>
+    <artifactId>jsonschema-to-pojo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <jsonschema2pojo.version>1.2.1</jsonschema2pojo.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jsonschema2pojo</groupId>
+            <artifactId>jsonschema2pojo-core</artifactId>
+            <version>${jsonschema2pojo.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- TODO: Generate final schemas before POJO's -->
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <version>${jsonschema2pojo.version}</version>
+                <configuration>
+                    <sourceDirectory>${basedir}/src/main/resources/schemas/json/example</sourceDirectory>
+                    <includeAdditionalProperties>false</includeAdditionalProperties>
+                    <sourceType>jsonschema</sourceType>
+                    <outputDirectory>${basedir}/target/generated-sources/java</outputDirectory>
+                    <targetPackage>io.vasiletoncu.example</targetPackage>
+                    <serializable>true</serializable>
+                    <removeOldOutput>true</removeOldOutput>
+                    <includeGeneratedAnnotation>false</includeGeneratedAnnotation>
+                    <useTitleAsClassname>true</useTitleAsClassname>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

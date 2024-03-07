@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "description": "The unique identifier",
+  "properties": {
+    "id": {
+        "$ref": "commons/identifier.json"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "description": "The unique identifier",
+  "properties": {
+    "system": {
+      "type": "string",
+      "description": "The code that identifies the system that produces the identifier.",
+      "examples": [
+        "THIRD_PARTY",
+        "INTERNAL",
+        "UNKNOWN"
+      ]
+    },
+    "value": {
+      "type": "string",
+      "examples": [
+        "123",
+        "uuid",
+        "0"
+      ]
+    }
+  },
+  "required": [
+    "value"
+  ]
+}
